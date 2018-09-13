@@ -6,6 +6,6 @@ android:
                 - android-27
                 - extra-android-m2repository
 script:
-        - ./gradlew build
+        - ./gradlew resource-file-provider:check
 before_install:
         - chmod +x gradlew
