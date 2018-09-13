@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Android Resource FileProvider</string>
+    <string name="authority">it.federicoboschini.fileprovider</string>
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Android Resource File Provider</string>
+    <string name="authority">it.my_company.my_app.my_authority</string>
+</resources>
