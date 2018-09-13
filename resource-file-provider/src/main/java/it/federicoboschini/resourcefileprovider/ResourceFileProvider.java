@@ -18,6 +18,8 @@ import it.federicoboschini.androidresourcefileprovider.R;
  * @author Federico Boschini
  */
 public class ResourceFileProvider {
+    private static final String TAG = "ResourceFileProvider";
+
     public static final String FOLDER_RAW = "raw";
     public static final String FOLDER_DRAWABLE = "drawable";
     public static final String FOLDER_MIPMAP = "mipmap";
@@ -67,8 +69,8 @@ public class ResourceFileProvider {
         } catch (Exception e) {
 
         }
-
-        Uri uri = FileProvider.getUriForFile(activity, activity.getResources().getString(R.string.authority), new File(activity.getFilesDir(), fileName.concat(".").concat(fileExtension)));
+        
+        Uri uri = FileProvider.getUriForFile(activity, activity.getResources().getString(R.string.rfp_provider_authority), new File(activity.getFilesDir(), fileName.concat(".").concat(fileExtension)));
 
         Intent intent = ShareCompat.IntentBuilder.from(activity).getIntent();
         intent.setAction(Intent.ACTION_SEND);
