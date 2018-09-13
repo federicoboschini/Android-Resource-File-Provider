@@ -4,11 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import it.federicoboschini.androidresourcefileprovider.ResourceFileProvider;
+import it.federicoboschini.resourcefileprovider.ResourceFileProvider;
 import it.federicoboschini.arfp.sample.R;
 
-import static it.federicoboschini.androidresourcefileprovider.ResourceFileProvider.FOLDER_RAW;
-import static it.federicoboschini.androidresourcefileprovider.ResourceFileProvider.TYPE_AUDIO;
+import static it.federicoboschini.resourcefileprovider.ResourceFileProvider.FOLDER_RAW;
+import static it.federicoboschini.resourcefileprovider.ResourceFileProvider.TYPE_AUDIO;
 
 public class MainActivity extends AppCompatActivity {
 

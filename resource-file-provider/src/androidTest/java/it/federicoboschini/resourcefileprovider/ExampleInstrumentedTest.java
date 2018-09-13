@@ -1,4 +1,4 @@
-package it.federicoboschini.androidresourcefileprovider;
+package it.federicoboschini.resourcefileprovider;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

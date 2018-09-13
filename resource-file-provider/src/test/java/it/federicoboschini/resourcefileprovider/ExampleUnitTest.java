@@ -1,4 +1,4 @@
-package it.federicoboschini.androidresourcefileprovider;
+package it.federicoboschini.resourcefileprovider;
 
 import org.junit.Test;
 

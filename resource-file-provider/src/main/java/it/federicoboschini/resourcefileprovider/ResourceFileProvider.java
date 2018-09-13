@@ -1,4 +1,4 @@
-package it.federicoboschini.androidresourcefileprovider;
+package it.federicoboschini.resourcefileprovider;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,8 @@ import android.support.v4.content.FileProvider;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+
+import it.federicoboschini.androidresourcefileprovider.R;
 
 /**
  * @author Federico Boschini

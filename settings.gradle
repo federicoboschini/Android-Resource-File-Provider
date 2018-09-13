@@ -1,1 +1,1 @@
-include ':sample', ':androidresourcefileprovider'
+include ':sample', ':resource-file-provider'
