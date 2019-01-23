@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Resource File Provider Sample</string>
+    <string name="rfp_provider_authority">it.my_company.my_app.my_authority</string>
+    <string name="share_sound_file">Share sound file</string>
+    <string name="share_pdf_file">Share PDF file</string>
+    <string name="share_drawable_file">Share drawable file</string>
+    <string name="share_mipmap_file">Share mipmap file</string>
+</resources>
