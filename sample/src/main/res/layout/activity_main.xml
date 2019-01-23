@@ -1,15 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="it.federicoboschini.fileprovidersample.MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/shareSound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SHARE RAW FILE"
-        android:onClick="shareRawFile"/>
+        android:layout_centerInParent="true"
+        android:onClick="shareRawSoundFile"
+        android:text="@string/share_sound_file" />
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/sharePdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shareSound"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:onClick="shareRawPdfFile"
+        android:text="@string/share_pdf_file" />
+
+    <Button
+        android:id="@+id/shareDrawable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sharePdf"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:onClick="shareDrawableFile"
+        android:text="@string/share_drawable_file" />
+
+    <Button
+        android:id="@+id/shareMipMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shareDrawable"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:onClick="shareMipMapFile"
+        android:text="@string/share_mipmap_file" />
+
+</RelativeLayout>
