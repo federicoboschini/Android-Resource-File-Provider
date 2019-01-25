@@ -34,7 +34,7 @@ Add this to your app `AndroidManifest.xml`:
 </resources>
 ```
 
-## Share a mp3 file example
+## Example: share a mp3 file
 
 ```java
 try {
@@ -59,16 +59,14 @@ try {
 * `.jpg`
 * `.png`
 * `.pdf`
+* `.mp4`
 
 ### Current supported and tested folders:
 
 * `drawable`
 * `raw`
+* `assets`
 
 ### Known issues:
 
 * Can't get images from `mipmap` folder.
-
-### Coming soon:
-
-* Get files from `assets` folder.
