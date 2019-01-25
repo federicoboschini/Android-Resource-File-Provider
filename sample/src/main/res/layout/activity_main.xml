@@ -6,29 +6,90 @@
     tools:context="it.federicoboschini.fileprovidersample.MainActivity">
 
     <Button
-        android:id="@+id/shareSound"
+        android:id="@+id/shareSoundRaw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
         android:onClick="shareRawSoundFile"
-        android:text="@string/share_sound_file" />
+        android:text="@string/share_sound_file_raw" />
 
     <Button
-        android:id="@+id/sharePdf"
+        android:id="@+id/shareSoundAssets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/shareSound"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/shareSoundRaw"
+        android:layout_centerHorizontal="true"
+        android:onClick="shareAssetsSoundFile"
+        android:text="@string/share_sound_file_assets" />
+
+    <Button
+        android:id="@+id/sharePdfRaw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shareSoundAssets"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:onClick="shareRawPdfFile"
-        android:text="@string/share_pdf_file" />
+        android:text="@string/share_pdf_file_raw" />
+
+    <Button
+        android:id="@+id/sharePdfAssets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sharePdfRaw"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:onClick="shareAssetsPdfFile"
+        android:text="@string/share_pdf_file_assets" />
+
+    <Button
+        android:id="@+id/shareVideoRaw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sharePdfAssets"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:onClick="shareRawVideoFile"
+        android:text="@string/share_video_file_raw" />
+
+    <Button
+        android:id="@+id/shareVideoAssets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shareVideoRaw"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:onClick="shareAssetsVideoFile"
+        android:text="@string/share_video_file_assets" />
+
+    <Button
+        android:id="@+id/shareImageAssets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shareVideoAssets"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:onClick="shareImageAssets"
+        android:text="@string/share_image_file_assets" />
+
+    <Button
+        android:id="@+id/shareImageRaw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/shareImageAssets"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:onClick="shareImageRaw"
+        android:text="@string/share_image_file_raw" />
 
     <Button
         android:id="@+id/shareDrawable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/sharePdf"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/shareImageRaw"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:onClick="shareDrawableFile"
         android:text="@string/share_drawable_file" />
@@ -38,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/shareDrawable"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:onClick="shareMipMapFile"
         android:text="@string/share_mipmap_file" />
