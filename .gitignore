@@ -34,3 +34,5 @@ captures/
 \.idea/
 
 *.iml
+
+resource-file-provider/secrets\.properties
