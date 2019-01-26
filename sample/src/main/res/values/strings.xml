@@ -9,6 +9,5 @@
     <string name="share_video_file_assets">Share video file (assets)</string>
     <string name="share_image_file_assets">Share image file (assets)</string>
     <string name="share_image_file_raw">Share image file (raw)</string>
-    <string name="share_drawable_file">Share drawable file</string>
-    <string name="share_mipmap_file">Share mipmap file</string>
+    <string name="share_drawable_file">Share image file (drawable)</string>
 </resources>

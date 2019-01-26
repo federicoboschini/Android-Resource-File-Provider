@@ -161,18 +161,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void shareMipMapFile(View view) {
-        try {
-            ResourceFileProvider.Builder
-                    .from(this)
-                    .setDirectory(FOLDER_MIPMAP)
-                    .setFileName("ic_launcher")
-                    .setFileExtension("png")
-                    .setFileType(TYPE_IMAGE)
-                    .build()
-                    .shareFile();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 }
