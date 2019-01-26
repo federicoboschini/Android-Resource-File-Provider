@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/federicoboschini/Android-Resource-File-Provider.svg?branch=master)](https://travis-ci.org/federicoboschini/Android-Resource-File-Provider)
 
-Easily share audio, video, image and document files from `raw` and `drawable` folders **without any specific permission**.
+Easily share audio, video, image and document files from `raw`, `assets` and `drawable` folders **without any specific permission**.
 
 ## Configuration
 
@@ -66,6 +66,8 @@ try {
 * `drawable`
 * `raw`
 * `assets`
+
+***Note:*** if your project contains density-dependent drawables, the nearest to the device density will be selected.
 
 ### Known issues:
 
