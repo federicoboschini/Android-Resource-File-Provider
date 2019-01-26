@@ -1,5 +1,7 @@
 # Android Resource File Provider
 
+[![API](https://img.shields.io/badge/API-14%2B-orange.svg?style=flat)](https://developer.android.com/about/dashboards/index.html#Platform)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE.md)
 [![Build Status](https://travis-ci.org/federicoboschini/Android-Resource-File-Provider.svg?branch=master)](https://travis-ci.org/federicoboschini/Android-Resource-File-Provider)
 
 Easily share audio, video, image and document files from `raw`, `assets` and `drawable` folders **without any specific permission**.
