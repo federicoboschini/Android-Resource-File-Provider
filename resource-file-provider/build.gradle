@@ -1,4 +1,13 @@
+plugins {
+    id 'com.jfrog.bintray' version '1.7.3'
+    id 'com.novoda.build-properties' version '0.4.1'
+}
+
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.novoda.build-properties'
+apply from: 'distribution.gradle'
 
 android {
     compileSdkVersion 28
