@@ -24,7 +24,7 @@ Add this to your app `AndroidManifest.xml`:
 </application>
 ```
 
-(Optional) Add this to your app `strings.xml`:
+**Optional** Add this (provider authority) to your app `strings.xml`:
 
 ```xml
 <resources>
@@ -32,6 +32,19 @@ Add this to your app `AndroidManifest.xml`:
     <string name="rfp_provider_authority">it.my_company.my_app.my_authority</string>
     <!--    ...     -->
 </resources>
+```
+
+**Optional** Define custom file paths by creating a `file_provider_paths` in `res/xml`:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- Define the desired file paths -->
+    
+    <!--    The default is:     -->
+    <!-- <files-path name="all" path="/"/> -->
+</paths>
+
 ```
 
 ## Example: share a mp3 file
