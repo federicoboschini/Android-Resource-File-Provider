@@ -52,6 +52,10 @@ public class ResourceFileProvider {
         this.fileType = fileType;
     }
 
+    /**
+     * Given the {@link Builder} parameters, retrieves the file. Automatically starts a "share" Intent.
+     * @throws FileNotFoundException if can't find the file.
+     */
     public void shareFile() throws FileNotFoundException {
         int resId = activity.getResources().getIdentifier(fileName, directory, activity.getPackageName());
         InputStream inputStream = null;
@@ -126,6 +130,9 @@ public class ResourceFileProvider {
         return resId != 0;
     }
 
+    /**
+     * Builder class: the entry point of this tool.
+     */
     public static class Builder {
         private final Activity activity;
         private String directory;
@@ -137,30 +144,65 @@ public class ResourceFileProvider {
             this.activity = activity;
         }
 
+        /**
+         * @param activity a valid Activity used as Context and to start the "share" Intent
+         * @return the Builder itself.
+         */
         public static Builder from(@NonNull Activity activity) {
             return new Builder(activity);
         }
 
+        /**
+         * Set the directory where the file is stored.
+         * @param directory a String representing the directory. Consider using one of the following
+         *          {@link ResourceFileProvider#FOLDER_ASSETS}
+         *          {@link ResourceFileProvider#FOLDER_RAW}
+         *          {@link ResourceFileProvider#FOLDER_DRAWABLE}
+         * @return the Builder itself.
+         */
         public Builder setDirectory(@NonNull String directory) {
             this.directory = directory;
             return this;
         }
 
+        /**
+         * Set the file name.
+         * @param fileName the filename as a String, WITHOUT any extension, see {@link Builder#setFileExtension(String)}.
+         * @return the Builder itself.
+         */
         public Builder setFileName(@NonNull String fileName) {
             this.fileName = fileName;
             return this;
         }
 
+        /**
+         * Set the file extension.
+         * @param fileExtension the extension as a String, WITHOUT the point.
+         * @return the Builder itself.
+         */
         public Builder setFileExtension(@NonNull String fileExtension) {
             this.fileExtension = fileExtension;
             return this;
         }
 
+        /**
+         * Set the file type. Used for the "share" intent.
+         * @param fileType the file type as a String (MIME type). Consider using one of the following
+         *          {@link ResourceFileProvider#TYPE_AUDIO}
+         *          {@link ResourceFileProvider#TYPE_VIDEO}
+         *          {@link ResourceFileProvider#TYPE_IMAGE}
+         *          {@link ResourceFileProvider#TYPE_PDF}
+         * @return the Builder itself.
+         */
         public Builder setFileType(@NonNull String fileType) {
             this.fileType = fileType;
             return this;
         }
 
+        /**
+         * Builds the ResourceFileProvider.
+         * @return the ResourceFileProvider.
+         */
         public ResourceFileProvider build() {
             return new ResourceFileProvider(activity, directory, fileName, fileExtension, fileType);
         }

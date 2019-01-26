@@ -1,4 +1,6 @@
 language: android
+env:
+  - BINTRAY_USER=xxxxUSERxxxx BINTRAY_APIKEY=xxxxAPIKEYxxxx
 android:
   components:
   - platform-tools
