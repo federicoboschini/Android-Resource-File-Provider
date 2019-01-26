@@ -2,6 +2,9 @@ buildProperties {
     secrets {
         using project.file('secrets.properties')
     }
+    env {
+        using System.getenv()
+    }
 }
 
 /*
@@ -56,8 +59,8 @@ artifacts {
 group = 'it.federicoboschini'
 
 bintray {
-    user = buildProperties.secrets['bintray.user'].string
-    key = buildProperties.secrets['bintray.apikey'].string
+    user = (buildProperties.secrets['bintray.user'] | buildProperties.env['BINTRAY_USER']).string
+    key = (buildProperties.secrets['bintray.apikey'] | buildProperties.env['BINTRAY_APIKEY']).string
     configurations = ['archives']
 
     pkg {
