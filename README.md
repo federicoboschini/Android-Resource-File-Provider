@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/federicoboschini/Android-Resource-File-Provider.svg?branch=master)](https://travis-ci.org/federicoboschini/Android-Resource-File-Provider)
 
-Easily share audio, video, image and document files from `raw` and `drawable` folders **without any specific permission**.
+Easily share audio, video, image and document files from `raw`, `assets` and `drawable` folders **without any specific permission**.
 
 ## Configuration
 
@@ -34,7 +34,7 @@ Add this to your app `AndroidManifest.xml`:
 </resources>
 ```
 
-## Share a mp3 file example
+## Example: share a mp3 file
 
 ```java
 try {
@@ -59,16 +59,16 @@ try {
 * `.jpg`
 * `.png`
 * `.pdf`
+* `.mp4`
 
 ### Current supported and tested folders:
 
 * `drawable`
 * `raw`
+* `assets`
+
+***Note:*** if your project contains density-dependent drawables, the nearest to the device density will be selected.
 
 ### Known issues:
 
 * Can't get images from `mipmap` folder.
-
-### Coming soon:
-
-* Get files from `assets` folder.

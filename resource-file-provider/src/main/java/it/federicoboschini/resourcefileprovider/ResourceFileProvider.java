@@ -3,6 +3,7 @@ package it.federicoboschini.resourcefileprovider;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ShareCompat;
@@ -30,6 +31,7 @@ public class ResourceFileProvider {
     public static final String FOLDER_RAW = "raw";
     public static final String FOLDER_DRAWABLE = "drawable";
     public static final String FOLDER_MIPMAP = "mipmap";
+    public static final String FOLDER_ASSETS = "assets";
 
     public static final String TYPE_AUDIO = "audio/*";
     public static final String TYPE_IMAGE = "image/*";
@@ -52,18 +54,20 @@ public class ResourceFileProvider {
 
     public void shareFile() throws FileNotFoundException {
         int resId = activity.getResources().getIdentifier(fileName, directory, activity.getPackageName());
+        InputStream inputStream = null;
         if (isValidResId(resId)) {
-            InputStream inputStream = null;
             switch (directory) {
                 case FOLDER_RAW:
                     inputStream = activity.getResources().openRawResource(resId);
                     break;
                 case FOLDER_MIPMAP:
                 case FOLDER_DRAWABLE:
-                    Uri fileUri = null;
+                    Uri fileUri;
                     try {
                         fileUri = Uri.parse(String.format(ANDROID_RES_URI, activity.getPackageName(), resId));
-                    } catch (IllegalFormatException ignored) { }
+                    } catch (IllegalFormatException e) {
+                        throw new FileNotFoundException();
+                    }
                     if (fileUri != null) {
                         inputStream = activity.getContentResolver().openInputStream(fileUri);
                     }
@@ -72,34 +76,49 @@ public class ResourceFileProvider {
                     inputStream = activity.getResources().openRawResource(resId);
                     break;
             }
-            try {
-                byte[] buff = new byte[1024];
-                int len;
-                FileOutputStream outputStream = activity.openFileOutput(fileName.concat(".").concat(fileExtension), Context.MODE_PRIVATE);
-                if (inputStream != null) {
-                    while ((len = inputStream.read(buff)) > 0) {
-                        outputStream.write(buff, 0, len);
-                    }
-                    inputStream.close();
-                }
-                outputStream.close();
-            } catch (IOException e) {
-                Log.e(TAG, e.getLocalizedMessage());
-            }
-
-            Uri uri = FileProvider.getUriForFile(activity, activity.getResources().getString(R.string.rfp_provider_authority), new File(activity.getFilesDir(), fileName.concat(".").concat(fileExtension)));
-
-            Intent intent = ShareCompat.IntentBuilder.from(activity).getIntent();
-            intent.setAction(Intent.ACTION_SEND);
-            intent.setType(fileType);
-            intent.putExtra(Intent.EXTRA_STREAM, uri);
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-            if (intent.resolveActivity(activity.getPackageManager()) != null) {
-                activity.startActivity(intent);
-            }
+            prepareAndShare(inputStream);
         } else {
-            throw new FileNotFoundException();
+            if (directory.equals(FOLDER_ASSETS)) {
+                AssetManager assetManager = activity.getAssets();
+                try {
+                    inputStream = assetManager.open(fileName.concat(".").concat(fileExtension));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new FileNotFoundException();
+                }
+                prepareAndShare(inputStream);
+            } else {
+                throw new FileNotFoundException();
+            }
+        }
+    }
+
+    private void prepareAndShare(InputStream inputStream) {
+        try {
+            byte[] buff = new byte[1024];
+            int len;
+            FileOutputStream outputStream = activity.openFileOutput(fileName.concat(".").concat(fileExtension), Context.MODE_PRIVATE);
+            if (inputStream != null) {
+                while ((len = inputStream.read(buff)) > 0) {
+                    outputStream.write(buff, 0, len);
+                }
+                inputStream.close();
+            }
+            outputStream.close();
+        } catch (IOException e) {
+            Log.e(TAG, e.getLocalizedMessage());
+        }
+
+        Uri uri = FileProvider.getUriForFile(activity, activity.getResources().getString(R.string.rfp_provider_authority), new File(activity.getFilesDir(), fileName.concat(".").concat(fileExtension)));
+
+        Intent intent = ShareCompat.IntentBuilder.from(activity).getIntent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType(fileType);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        if (intent.resolveActivity(activity.getPackageManager()) != null) {
+            activity.startActivity(intent);
         }
     }
 

@@ -1,11 +1,14 @@
 language: android
 android:
-        components:
-                - platform-tools
-                - build-tools-27.0.3
-                - android-27
-                - extra-android-m2repository
+  components:
+  - platform-tools
+  - build-tools-28.0.3
+  - android-28
+  - extra-android-m2repository
+before_script:
+- mkdir "$ANDROID_HOME/licenses" || true
+- echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_HOME/licenses/android-sdk-license"
 script:
-        - ./gradlew resource-file-provider:check
+- ./gradlew resource-file-provider:check
 before_install:
-        - chmod +x gradlew
+- chmod +x gradlew
