@@ -1,0 +1,74 @@
+buildProperties {
+    secrets {
+        using project.file('secrets.properties')
+    }
+    env {
+        using System.getenv()
+    }
+}
+
+/*
+ *  Gets the version name from the latest Git tag
+ */
+def getVersionName = {
+    def stdout = new ByteArrayOutputStream()
+    try {
+        exec {
+            commandLine 'git', 'describe', '--tags', '--abbrev=0'
+            standardOutput = stdout
+        }
+        return stdout.toString().trim()
+    }
+    catch (e) {
+        println("Can't get version from git: " + e)
+        return "adhoc"
+    }
+}
+allprojects {
+    version = "${getVersionName()}"
+}
+
+/*
+ *  Performs clean, build, maven install and publish on Bintray
+ */
+task cleanBuildInstallPublish {
+    dependsOn 'clean'
+    dependsOn 'build'
+    dependsOn 'install'
+    dependsOn 'bintrayUpload'
+    tasks.findByName('build').mustRunAfter 'clean'
+    tasks.findByName('install').mustRunAfter 'build'
+    tasks.findByName('bintrayUpload').mustRunAfter 'install'
+}
+configure(cleanBuildInstallPublish) {
+    group = 'Publishing'
+    description = 'Cleans, builds, creates artifact and uploads to bintray'
+}
+
+/*
+ *  Upload to Bintray
+ */
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+artifacts {
+    archives sourcesJar
+}
+
+group = 'it.federicoboschini'
+
+bintray {
+    user = (buildProperties.secrets['bintray.user'] | buildProperties.env['BINTRAY_USER']).string
+    key = (buildProperties.secrets['bintray.apikey'] | buildProperties.env['BINTRAY_APIKEY']).string
+    configurations = ['archives']
+
+    pkg {
+        repo = 'android-libraries'
+        name = 'it.federico:resource-file-provider'
+        vcsUrl = 'https://github.com/federicoboschini/Android-Resource-File-Provider'
+        websiteUrl = 'https://federicoboschini.it'
+        licenses = ['MIT']
+        publish = true
+    }
+}
