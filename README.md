@@ -4,6 +4,32 @@
 
 Easily share audio, video, image and document files from `raw`, `assets` and `drawable` folders **without any specific permission**.
 
+## Installation
+
+Add the repository at the top of your app `build.gradle`:
+
+```groovy
+repositories {
+    maven {
+        url  "https://dl.bintray.com/boschini/android-libraries"
+    }
+}
+```
+
+Include the dependency in your app `build.gradle` file:
+
+```groovy
+implementation 'it.federicoboschini:resource-file-provider:1.0.0'
+```
+
+If you are experiencing any issue with resource merging or support-library compatibility add the dependency excluding `com.android.support`:
+
+```groovy
+implementation('it.federicoboschini:resource-file-provider:1.0.0') {
+    exclude group: 'com.android.support'
+}
+```
+
 ## Configuration
 
 Add this to your app `AndroidManifest.xml`:
