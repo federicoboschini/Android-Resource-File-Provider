@@ -8,16 +8,6 @@ Easily share audio, video, image and document files from `raw`, `assets` and `dr
 
 ## Installation
 
-Add the repository at the top of your app `build.gradle`:
-
-```groovy
-repositories {
-    maven {
-        url  "https://dl.bintray.com/boschini/android-libraries"
-    }
-}
-```
-
 Include the dependency in your app `build.gradle` file:
 
 ```groovy
