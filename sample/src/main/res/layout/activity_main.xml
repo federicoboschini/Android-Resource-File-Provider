@@ -99,6 +99,18 @@
             android:onClick="shareDrawableFile"
             android:text="@string/share_drawable_file" />
 
+        <Button
+            android:id="@+id/createIntent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shareDrawable"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:onClick="createIntentAndShare"
+            android:text="@string/create_intent_and_share" />
+
+
+
     </RelativeLayout>
 
 </ScrollView>

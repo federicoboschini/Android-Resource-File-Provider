@@ -1,5 +1,6 @@
 package it.federicoboschini.fileprovidersample;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,6 @@ import it.federicoboschini.arfp.sample.R;
 
 import static it.federicoboschini.resourcefileprovider.ResourceFileProvider.FOLDER_ASSETS;
 import static it.federicoboschini.resourcefileprovider.ResourceFileProvider.FOLDER_DRAWABLE;
-import static it.federicoboschini.resourcefileprovider.ResourceFileProvider.FOLDER_MIPMAP;
 import static it.federicoboschini.resourcefileprovider.ResourceFileProvider.FOLDER_RAW;
 import static it.federicoboschini.resourcefileprovider.ResourceFileProvider.TYPE_AUDIO;
 import static it.federicoboschini.resourcefileprovider.ResourceFileProvider.TYPE_IMAGE;
@@ -158,6 +158,21 @@ public class MainActivity extends AppCompatActivity {
                     .shareFile();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void createIntentAndShare(View view) {
+        Intent intent = ResourceFileProvider.Builder
+                .from(this)
+                .setDirectory(FOLDER_RAW)
+                .setFileName("yee")
+                .setFileExtension("mp3")
+                .setFileType(TYPE_AUDIO)
+                .build()
+                .createShareIntent();
+
+        if (intent != null && intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
         }
     }
 
