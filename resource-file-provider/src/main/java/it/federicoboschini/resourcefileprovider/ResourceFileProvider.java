@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
@@ -57,47 +58,30 @@ public class ResourceFileProvider {
      * @throws FileNotFoundException if can't find the file.
      */
     public void shareFile() throws FileNotFoundException {
-        int resId = activity.getResources().getIdentifier(fileName, directory, activity.getPackageName());
-        InputStream inputStream = null;
-        if (isValidResId(resId)) {
-            switch (directory) {
-                case FOLDER_RAW:
-                    inputStream = activity.getResources().openRawResource(resId);
-                    break;
-                case FOLDER_MIPMAP:
-                case FOLDER_DRAWABLE:
-                    Uri fileUri;
-                    try {
-                        fileUri = Uri.parse(String.format(ANDROID_RES_URI, activity.getPackageName(), resId));
-                    } catch (IllegalFormatException e) {
-                        throw new FileNotFoundException();
-                    }
-                    if (fileUri != null) {
-                        inputStream = activity.getContentResolver().openInputStream(fileUri);
-                    }
-                    break;
-                default:
-                    inputStream = activity.getResources().openRawResource(resId);
-                    break;
-            }
-            prepareAndShare(inputStream);
-        } else {
-            if (directory.equals(FOLDER_ASSETS)) {
-                AssetManager assetManager = activity.getAssets();
-                try {
-                    inputStream = assetManager.open(fileName.concat(".").concat(fileExtension));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    throw new FileNotFoundException();
-                }
-                prepareAndShare(inputStream);
+        Intent intent = createShareIntent();
+
+        if (intent != null) {
+            if (intent.resolveActivity(activity.getPackageManager()) != null) {
+                activity.startActivity(intent);
             } else {
                 throw new FileNotFoundException();
             }
         }
+
     }
 
-    private void prepareAndShare(InputStream inputStream) {
+    /**
+     * Given the {@link Builder} parameters, retrieves the file. Automatically returns a "share" Intent.
+     * The Intent can be null if the file can't be found or an IOException is thrown.
+     */
+    @Nullable
+    public Intent createShareIntent() {
+        InputStream inputStream = null;
+        try {
+            inputStream = readFile();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         try {
             byte[] buff = new byte[1024];
             int len;
@@ -121,9 +105,48 @@ public class ResourceFileProvider {
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-        if (intent.resolveActivity(activity.getPackageManager()) != null) {
-            activity.startActivity(intent);
+        return intent;
+    }
+
+    @Nullable
+    private InputStream readFile() throws FileNotFoundException {
+        int resId = activity.getResources().getIdentifier(fileName, directory, activity.getPackageName());
+        InputStream inputStream = null;
+        if (isValidResId(resId)) {
+            switch (directory) {
+                case FOLDER_RAW:
+                    inputStream = activity.getResources().openRawResource(resId);
+                    break;
+                case FOLDER_MIPMAP:
+                case FOLDER_DRAWABLE:
+                    Uri fileUri;
+                    try {
+                        fileUri = Uri.parse(String.format(ANDROID_RES_URI, activity.getPackageName(), resId));
+                    } catch (IllegalFormatException e) {
+                        throw new FileNotFoundException();
+                    }
+                    if (fileUri != null) {
+                        inputStream = activity.getContentResolver().openInputStream(fileUri);
+                    }
+                    break;
+                default:
+                    inputStream = activity.getResources().openRawResource(resId);
+                    break;
+            }
+        } else {
+            if (directory.equals(FOLDER_ASSETS)) {
+                AssetManager assetManager = activity.getAssets();
+                try {
+                    inputStream = assetManager.open(fileName.concat(".").concat(fileExtension));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new FileNotFoundException();
+                }
+            } else {
+                throw new FileNotFoundException();
+            }
         }
+        return inputStream;
     }
 
     private boolean isValidResId(int resId) {
