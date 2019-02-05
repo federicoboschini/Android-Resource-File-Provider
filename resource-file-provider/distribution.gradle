@@ -65,7 +65,7 @@ bintray {
 
     pkg {
         repo = 'android-libraries'
-        name = 'it.federico:resource-file-provider'
+        name = 'it.federicoboschini:resource-file-provider'
         vcsUrl = 'https://github.com/federicoboschini/Android-Resource-File-Provider'
         websiteUrl = 'https://federicoboschini.it'
         licenses = ['MIT']
