@@ -2,6 +2,7 @@
 
 [![API](https://img.shields.io/badge/API-14%2B-orange.svg?style=flat)](https://developer.android.com/about/dashboards/index.html#Platform)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](LICENSE.md)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Android%20Resource%20File%20Provider-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7485)
 [![Build Status](https://travis-ci.org/federicoboschini/Android-Resource-File-Provider.svg?branch=master)](https://travis-ci.org/federicoboschini/Android-Resource-File-Provider)
 
 Easily share audio, video, image and document files from `raw`, `assets` and `drawable` folders **without any specific permission**.
