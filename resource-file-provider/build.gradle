@@ -10,11 +10,11 @@ apply plugin: 'com.novoda.build-properties'
 apply from: 'distribution.gradle'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 0
         versionName version
 
