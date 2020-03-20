@@ -5,11 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ShareCompat;
-import android.support.v4.content.FileProvider;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ShareCompat;
+import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -94,7 +95,11 @@ public class ResourceFileProvider {
             }
             outputStream.close();
         } catch (IOException e) {
-            Log.e(TAG, e.getLocalizedMessage());
+            if (e.getLocalizedMessage() != null) {
+                Log.e(TAG, e.getLocalizedMessage());
+            } else {
+                Log.e(TAG, e.toString());
+            }
         }
 
         Uri uri = FileProvider.getUriForFile(activity, activity.getResources().getString(R.string.rfp_provider_authority), new File(activity.getFilesDir(), fileName.concat(".").concat(fileExtension)));
@@ -114,9 +119,6 @@ public class ResourceFileProvider {
         InputStream inputStream = null;
         if (isValidResId(resId)) {
             switch (directory) {
-                case FOLDER_RAW:
-                    inputStream = activity.getResources().openRawResource(resId);
-                    break;
                 case FOLDER_MIPMAP:
                 case FOLDER_DRAWABLE:
                     Uri fileUri;
@@ -129,6 +131,7 @@ public class ResourceFileProvider {
                         inputStream = activity.getContentResolver().openInputStream(fileUri);
                     }
                     break;
+                case FOLDER_RAW:
                 default:
                     inputStream = activity.getResources().openRawResource(resId);
                     break;
